@@ -1,25 +1,4 @@
-/* -*-  Mode: C++; c-file-style: "gnu"; indent-tabs-mode:nil; -*- */
-/*
- * Deep Reinforcement Learning based TCP Congestion Control
- * NS-3 Network Simulation Script
- *
- * This simulation builds a dumbbell topology, configures TCP with
- * either traditional (NewReno, Cubic) or RL-based congestion control,
- * runs bulk data transfers, and collects performance metrics via
- * FlowMonitor for comparative analysis.
- *
- * Topology:
- *
- *   Left Leafs (Senders)                        Right Leafs (Receivers)
- *           |            \                      /        |
- *           |             \    bottleneck      /         |
- *           |              R0--------------R1            |
- *           |             /                  \           |
- *           |   access   /                    \  access  |
- *           N -----------                      ----------N
- */
 
-// NS-3 core module includes
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/internet-module.h"
@@ -42,10 +21,6 @@
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE ("DrlTcpSimulation");
-
-// ============================================================================
-// Commit 1 — Simulation skeleton with CLI
-// ============================================================================
 
 // Global packet counter vector for tracking received packets per sink
 static std::vector<uint32_t> rxPkts;
@@ -76,12 +51,8 @@ struct PerformanceMetrics
   double wbi;         // Waste Bandwidth Index (waste ratio)
 };
 
-// Global storage for collected metrics
 static std::vector<PerformanceMetrics> g_metricsHistory;
 
-// ============================================================================
-// Commit 4 — FlowMonitor metrics collection and file output
-// ============================================================================
 
 // Static map to store previous flow stats for computing per-interval deltas
 static std::map<FlowId, FlowMonitor::FlowStats> g_previousFlowStats;
@@ -175,11 +146,6 @@ CollectMetrics ()
   Simulator::Schedule (Seconds (0.1), &CollectMetrics);
 }
 
-/**
- * Save collected metrics to CSV files for post-processing analysis
- * Output format: Time,Throughput,AvgRTT,PacketLoss,NEP,WBI
- * @param filename Base filename for the output CSV
- */
 static void
 SaveMetricsToFiles (const std::string &filename)
 {
@@ -211,17 +177,9 @@ SaveMetricsToFiles (const std::string &filename)
   NS_LOG_UNCOND ("Metrics saved to: " << filename);
 }
 
-// ============================================================================
-// Main simulation function
-// ============================================================================
-
 int
 main (int argc, char *argv[])
 {
-  // ========================================================================
-  // Commit 1 — Declare all simulation parameters
-  // ========================================================================
-
   // OpenGym interface parameters
   uint32_t openGymPort = 5555;
   double tcpEnvTimeStep = 0.1;
@@ -252,9 +210,6 @@ main (int argc, char *argv[])
   // Result file configuration
   std::string resultFilePath = "/home/aglamazlarefe/ns-allinone-3.35/ns-3.35/contrib/opengym/examples/TCP-RL";
 
-  // ========================================================================
-  // Command-line argument parsing
-  // ========================================================================
 
   CommandLine cmd;
   // OpenGym interface parameters
@@ -308,9 +263,6 @@ main (int argc, char *argv[])
       NS_LOG_UNCOND ("--openGymPort: No OpenGym (baseline algorithm)");
     }
 
-  // ========================================================================
-  // Commit 2 — OpenGym interface and TCP configuration
-  // ========================================================================
 
   // Create the OpenGym interface (must be created before anything else)
   Ptr<OpenGymInterface> openGymInterface;
@@ -383,10 +335,6 @@ main (int argc, char *argv[])
       Config::SetDefault ("ns3::TcpL4Protocol::SocketType",
                           TypeIdValue (TypeId::LookupByName (transport_prot)));
     }
-
-  // ========================================================================
-  // Commit 3 — Dumbbell topology and applications
-  // ========================================================================
 
   // Configure the error model (rate-based, packet unit)
   Ptr<UniformRandomVariable> uv = CreateObject<UniformRandomVariable> ();
@@ -479,9 +427,6 @@ main (int argc, char *argv[])
       clientApp.Stop (Seconds (stop_time - 3));
     }
 
-  // ========================================================================
-  // Commit 4 — FlowMonitor metrics and file output
-  // ========================================================================
 
   // Install FlowMonitor on all nodes for performance measurement
   FlowMonitorHelper flowHelper;
