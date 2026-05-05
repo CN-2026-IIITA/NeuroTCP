@@ -12,6 +12,7 @@ const LINKS = [
   { href: '/transfer', label: 'Transfer' },
   { href: '/live', label: 'Live' },
   { href: '/config', label: 'Config' },
+  { href: '/documentation', label: 'Docs' },
 ];
 
 export default function NavBar() {
