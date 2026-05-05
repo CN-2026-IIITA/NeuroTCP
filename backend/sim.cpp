@@ -1,4 +1,3 @@
-
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/internet-module.h"
@@ -10,6 +9,7 @@
 #include "ns3/flow-monitor-module.h"
 #include "ns3/traffic-control-module.h"
 #include "ns3/opengym-module.h"
+#include "ns3/tcp-westwood.h"
 #include "tcp-rl.h"
 
 #include <fstream>
