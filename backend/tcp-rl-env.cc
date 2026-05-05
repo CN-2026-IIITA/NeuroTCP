@@ -26,9 +26,9 @@ NS_LOG_COMPONENT_DEFINE ("ns3::TcpGymEnv");
 NS_OBJECT_ENSURE_REGISTERED (TcpGymEnv);
 
 /*
- * ============================================================
+ * 
  *  TcpGymEnv — Constructor / Destructor / TypeId
- * ============================================================
+ * 
  */
 
 TcpGymEnv::TcpGymEnv ()
@@ -60,9 +60,9 @@ TcpGymEnv::DoDispose ()
 }
 
 /*
- * ============================================================
+ * 
  *  Node / Socket Identification
- * ============================================================
+ * 
  */
 
 void
@@ -80,9 +80,9 @@ TcpGymEnv::SetSocketUuid(uint32_t id)
 }
 
 /*
- * ============================================================
+ * 
  *  Helper: Convert TCP congestion state enum to readable string
- * ============================================================
+ * 
  */
 
 std::string
@@ -116,9 +116,9 @@ TcpGymEnv::GetTcpCongStateName(const TcpSocketState::TcpCongState_t state)
 }
 
 /*
- * ============================================================
+ * 
  *  Helper: Convert TCP CA event enum to readable string
- * ============================================================
+ * 
  */
 
 std::string
@@ -158,14 +158,14 @@ TcpGymEnv::GetTcpCAEventName(const TcpSocketState::TcpCAEvent_t event)
 }
 
 /*
- * ============================================================
+ * 
  *  OpenGym Interface: Action Space
  *
  *  The action space is a Box with 2 uint32 parameters:
  *    [0] = new ssThresh value
  *    [1] = new cWnd value
  *  Range: [0, 65535]
- * ============================================================
+ * 
  */
 
 Ptr<OpenGymSpace>
@@ -183,13 +183,13 @@ TcpGymEnv::GetActionSpace()
 }
 
 /*
- * ============================================================
+ * 
  *  OpenGym Interface: Game Over
  *
  *  Returns false under normal operation. Contains a debug
  *  counter that can be toggled for testing (terminates after
  *  10 steps if the test flag is enabled).
- * ============================================================
+ * 
  */
 
 bool
@@ -207,13 +207,13 @@ TcpGymEnv::GetGameOver()
 }
 
 /*
- * ============================================================
+ * 
  *  OpenGym Interface: Reward
  *
  *  Returns the reward value computed by the active subclass.
  *  The subclass sets m_envReward based on its own reward logic
  *  (e.g., positive for ACK, negative for loss).
- * ============================================================
+ * 
  */
 
 float
@@ -224,13 +224,13 @@ TcpGymEnv::GetReward()
 }
 
 /*
- * ============================================================
+ * 
  *  OpenGym Interface: Extra Info
  *
  *  Returns a descriptive string about the most recent callback
  *  (e.g., "GetSsThresh", "IncreaseWindow"). Useful for the
  *  Python agent to know which TCP event triggered this step.
- * ============================================================
+ * 
  */
 
 std::string
@@ -241,7 +241,7 @@ TcpGymEnv::GetExtraInfo()
 }
 
 /*
- * ============================================================
+ * 
  *  OpenGym Interface: Execute Actions
  *
  *  Reads the 2-parameter action from the agent:
@@ -249,7 +249,7 @@ TcpGymEnv::GetExtraInfo()
  *    action[1] → new congestion window size (cWnd)
  *  These values are stored and applied in the subclass's
  *  GetSsThresh / IncreaseWindow callbacks.
- * ============================================================
+ * 
  */
 
 bool
@@ -264,13 +264,13 @@ TcpGymEnv::ExecuteActions(Ptr<OpenGymDataContainer> action)
 }
 
 /*
- * ============================================================
+ * 
  *  TcpEventGymEnv — Event-Driven RL Environment
  *
  *  Notifies the Python agent on every TCP congestion event.
  *  Each notification carries a 10-parameter observation of the
  *  instantaneous TCP state at the moment of the event.
- * ============================================================
+ * 
  */
 
 NS_OBJECT_ENSURE_REGISTERED (TcpEventGymEnv);
@@ -472,14 +472,14 @@ TcpEventGymEnv::CwndEvent (Ptr<TcpSocketState> tcb, const TcpSocketState::TcpCAE
 
 
 /*
- * ============================================================
+ * 
  *  TcpTimeStepGymEnv — Timestep-Based RL Environment
  *
  *  Collects TCP statistics over fixed time windows and sends
  *  aggregated observations to the agent periodically. This
  *  provides smoother, less noisy observations compared to the
  *  event-driven variant.
- * ============================================================
+ * 
  */
 
 NS_OBJECT_ENSURE_REGISTERED (TcpTimeStepGymEnv);
