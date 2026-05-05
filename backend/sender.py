@@ -14,7 +14,7 @@ import os
 import sys
 
 PORT = 9000
-FILE_SIZE_MB = 25
+FILE_SIZE_MB = 100
 
 def send_file(receiver_ip, payload, method_name, chunk_size, use_nodelay, bufsize, congestion_algo=None):
     """Send the payload to the receiver using the specified TCP settings."""
