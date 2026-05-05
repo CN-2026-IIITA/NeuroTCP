@@ -36,11 +36,11 @@ The documentation page follows the existing dashboard theme and includes the fou
 
 Measured from the included `backend/results_*.txt` files:
 
-| Algorithm | Average throughput | Average RTT | Total packet loss |
-| --- | ---: | ---: | ---: |
-| DRL-TCP | 9.498 Mbps | 14.844 ms | 76 |
-| TCP Cubic | 8.051 Mbps | 30.155 ms | 252 |
-| TCP NewReno | 7.514 Mbps | 35.208 ms | 355 |
+| Algorithm   | Average throughput | Average RTT | Total packet loss |
+| ----------- | -----------------: | ----------: | ----------------: |
+| DRL-TCP     |         9.498 Mbps |   14.844 ms |                76 |
+| TCP Cubic   |         8.051 Mbps |   30.155 ms |               252 |
+| TCP NewReno |         7.514 Mbps |   35.208 ms |               355 |
 
 The included data shows DRL-TCP achieving the highest average throughput and the lowest average RTT in this setup. The result direction is consistent with the referenced arXiv work, which reports that a DQN-based TCP controller can preserve comparable throughput while reducing RTT against Cubic and NewReno.
 
@@ -136,31 +136,31 @@ docker-compose.yml
 
 ## Tech Stack
 
-| Layer | Technologies | Purpose |
-| --- | --- | --- |
-| Simulation | NS-3, C++, FlowMonitor | Network topology, TCP execution, metric collection |
-| RL bridge | OpenGym, ns3-gym | Communication between NS-3 and Python agents |
-| Learning | Python, TensorFlow/Keras, DQN, PPO, NumPy | Policy training and inference |
-| Analysis | Pandas, SciPy, Matplotlib | Parsing, statistical comparison, graph generation |
-| Backend | FastAPI, Uvicorn, ZeroMQ, WebSocket | Metrics API and live telemetry |
-| Frontend | Next.js 14, React, TypeScript, Tailwind CSS, Recharts, React Flow, Framer Motion | Dashboard and documentation |
-| Deployment | Docker, Docker Compose | Local multi-service execution |
+| Layer      | Technologies                                                                     | Purpose                                            |
+| ---------- | -------------------------------------------------------------------------------- | -------------------------------------------------- |
+| Simulation | NS-3, C++, FlowMonitor                                                           | Network topology, TCP execution, metric collection |
+| RL bridge  | OpenGym, ns3-gym                                                                 | Communication between NS-3 and Python agents       |
+| Learning   | Python, TensorFlow/Keras, DQN, PPO, NumPy                                        | Policy training and inference                      |
+| Analysis   | Pandas, SciPy, Matplotlib                                                        | Parsing, statistical comparison, graph generation  |
+| Backend    | FastAPI, Uvicorn, ZeroMQ, WebSocket                                              | Metrics API and live telemetry                     |
+| Frontend   | Next.js 14, React, TypeScript, Tailwind CSS, Recharts, React Flow, Framer Motion | Dashboard and documentation                        |
+| Deployment | Docker, Docker Compose                                                           | Local multi-service execution                      |
 
 ## Important Parameters
 
-| Parameter | Value |
-| --- | --- |
-| OpenGym port | `5555` |
-| Environment timestep | `0.1 s` |
-| Default duration | `10 s` |
-| Bottleneck link | `2 Mbps / 10 ms` |
-| Access links | `10 Mbps / 20 ms` |
-| MTU | `400 bytes` |
-| TCP buffers | `4 MB` send and receive |
-| TCP options | SACK enabled, delayed ACK count 2 |
-| DQN action set | keep, `+1500`, `-150`, `+4000` |
-| Optimizer | Adam, learning rate `1e-3` |
-| Discount factor | `0.95` |
+| Parameter            | Value                             |
+| -------------------- | --------------------------------- |
+| OpenGym port         | `5555`                            |
+| Environment timestep | `0.1 s`                           |
+| Default duration     | `10 s`                            |
+| Bottleneck link      | `2 Mbps / 10 ms`                  |
+| Access links         | `10 Mbps / 20 ms`                 |
+| MTU                  | `400 bytes`                       |
+| TCP buffers          | `4 MB` send and receive           |
+| TCP options          | SACK enabled, delayed ACK count 2 |
+| DQN action set       | keep, `+1500`, `-150`, `+4000`    |
+| Optimizer            | Adam, learning rate `1e-3`        |
+| Discount factor      | `0.95`                            |
 
 ## Running the Project
 
@@ -239,14 +239,14 @@ The parser reads the included result files, compares DRL-TCP against Cubic and N
 
 ## Contributors
 
-| Member | Primary contribution |
-| --- | --- |
-| Shivam Kumar | OpenGym environment bridge, base environment, event-based environment, timestep environment, reward logic, congestion callbacks |
-| Tushar Saharan | NS-3 simulation skeleton, TCP configuration, dumbbell topology, applications, FlowMonitor metrics, CSV output |
-| Varun Pandey | Metrics parser, statistical comparison, Matplotlib plots, simulation result files, live telemetry dashboard integration |
-| Kunal Khandelwal | TCP RL congestion-control classes, event and timestep variants, comparison/training/config dashboard pages |
-| Aryan Pandey | FastAPI scaffold, frontend dashboard foundation, animated UI, commit tracker, CORS and API port fixes |
-| Chinmay Raheja | DQN and PPO agents, training artifacts, baseline comparison runs, final result summaries and comparison plots |
+| Member           | Primary contribution                                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Shivam Kumar     | OpenGym environment bridge, base environment, event-based environment, timestep environment, reward logic, congestion callbacks |
+| Tushar Saharan   | NS-3 simulation skeleton, TCP configuration, dumbbell topology, applications, FlowMonitor metrics, CSV output                   |
+| Varun Pandey     | Metrics parser, statistical comparison, Matplotlib plots, simulation result files, live telemetry dashboard integration         |
+| Kunal Khandelwal | TCP RL congestion-control classes, event and timestep variants, comparison/training/config dashboard pages                      |
+| Aryan Pandey     | FastAPI scaffold, frontend dashboard foundation, animated UI, commit tracker, CORS and API port fixes                           |
+| Chinmay Raheja   | DQN and PPO agents, training artifacts, baseline comparison runs, final result summaries and comparison plots                   |
 
 ## Limitations
 
